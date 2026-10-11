@@ -7,189 +7,627 @@
 <meta name="description" content="Ankeet Bahety helps families, professionals and business owners across India choose life, health and general insurance, renew on time and get claims moving. SIPs and mutual funds too.">
 <link rel="icon" href="logo.png">
 <meta property="og:title" content="Ankeet Bahety | Insurance and mutual funds, Pan India">
-<meta property="og:description" content="Insurance cover that fits your family or business, explained in plain words. Ask for a free policy review.">
+<meta property="og:description" content="Insurance cover that fits your family or business, explained before you buy. Ask for a free policy review.">
 <meta property="og:image" content="https://ankeetbahety.in/ankeet-about.jpg">
 <meta property="og:url" content="https://ankeetbahety.in/">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap">
 <style>
-body{margin:0}
-html{scroll-behavior:smooth}
-a{color:#1F5E64}a:hover{color:#123F44}
-a:focus-visible,button:focus-visible{outline:3px solid #F2B705;outline-offset:2px}
+:root{
+  --ink:#0F3B3F;
+  --ink-deep:#0A2B2E;
+  --paper:#F7F8F6;
+  --white:#FFFFFF;
+  --text:#22363A;
+  --muted:#4C6064;
+  --line:#D9E2E1;
+  --mist:#E9EFEE;
+  --brass:#B8892B;
+  --brass-dark:#8A6414;
+  --brass-soft:#E7C77A;
+  --serif:'Newsreader',Georgia,'Times New Roman',serif;
+  --sans:'Hanken Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;background:var(--paper);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%}
+a{color:var(--ink)}
+a:hover{color:var(--brass-dark)}
+:focus-visible{outline:3px solid var(--brass);outline-offset:3px;border-radius:2px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+h1,h2,h3{font-family:var(--serif);font-weight:500;color:var(--ink);margin:0;text-wrap:balance}
+h2{font-size:clamp(2rem,3.6vw,2.9rem);line-height:1.1;letter-spacing:-0.01em}
+p{margin:0}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:12px 24px;border-radius:4px;font:600 16px/1.2 var(--sans);text-decoration:none;border:1.5px solid transparent;cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+.btn-primary{background:var(--brass);color:#1B1304;border-color:var(--brass)}
+.btn-primary:hover{background:#C99A38;color:#1B1304}
+.btn-outline{background:transparent;color:var(--white);border-color:rgba(255,255,255,.55)}
+.btn-outline:hover{background:rgba(255,255,255,.1);color:var(--white)}
+.btn-ink{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.btn-ink:hover{background:var(--ink-deep);color:var(--white)}
+.btn-line{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn-line:hover{background:var(--ink);color:var(--white)}
+.btn svg{width:20px;height:20px;flex:none}
+
+/* header */
+.top{background:var(--white);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:72px}
+.mark{display:flex;flex-direction:column;text-decoration:none;line-height:1.1}
+.mark b{font:500 24px/1.1 var(--serif);color:var(--ink);letter-spacing:-0.005em}
+.mark span{font-size:13px;color:var(--muted);margin-top:3px}
+.nav{display:flex;align-items:center;gap:30px}
+.nav a.l{font-weight:600;font-size:15px;text-decoration:none;color:var(--text);padding:10px 0}
+.nav a.l:hover{color:var(--brass-dark)}
+.nav .btn{min-height:42px;padding:8px 18px;font-size:15px}
+
+/* hero */
+.hero{background:var(--ink);color:var(--white);position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:48px;align-items:end;padding-top:76px}
+.hero-copy{padding-bottom:84px}
+.hero h1{color:var(--white);font-size:clamp(2.5rem,5vw,4.1rem);line-height:1.04;letter-spacing:-0.018em;font-weight:500;max-width:15em}
+.hero .lede{margin-top:24px;font-size:19px;line-height:1.6;color:#D6E6E5;max-width:33em}
+.hero .acts{margin-top:34px;display:flex;flex-wrap:wrap;gap:14px}
+.hero .fine{margin-top:26px;font-size:13.5px;color:#A9C4C3}
+.hero-art{position:relative;align-self:end;min-height:560px;display:flex;justify-content:center}
+.hero-art::before{content:"";position:absolute;left:6%;right:6%;bottom:0;top:36px;border:1px solid rgba(231,199,122,.45);border-bottom:0;border-radius:200px 200px 0 0}
+.hero-art img{position:relative;display:block;height:560px;width:auto;max-width:100%;object-fit:contain;object-position:bottom}
+
+/* reach card (the memorable element) */
+.reach{position:relative;z-index:2;background:var(--white);color:var(--text);border-radius:6px;box-shadow:0 18px 40px rgba(5,25,27,.28);margin-top:-52px}
+.reach .wrap{display:grid;grid-template-columns:1fr .85fr 1.45fr 1fr;padding:0}
+.reach a{display:flex;flex-direction:column;gap:3px;padding:22px 26px;text-decoration:none;color:var(--text);border-left:1px solid var(--line);transition:background .15s}
+.reach a:first-child{border-left:0}
+.reach a:hover{background:var(--mist);color:var(--text)}
+.reach small{font-size:13px;color:var(--muted);font-weight:500}
+.reach strong{font:500 20px/1.25 var(--serif);color:var(--ink);overflow-wrap:anywhere}
+.reach-shell{max-width:1180px;margin:0 auto;padding:0 28px;position:relative;z-index:3}
+
+/* sections */
+section{padding:92px 0 0}
+.intro{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:56px;align-items:start}
+.intro p.sub{color:var(--muted);max-width:34em;font-size:18px}
+
+/* services index */
+.svc{margin-top:48px;border-top:1.5px solid var(--ink)}
+.svc-row{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:20px 56px;padding:30px 0;border-bottom:1px solid var(--line)}
+.svc-row h3{font-size:clamp(1.5rem,2.4vw,1.95rem);line-height:1.15}
+.svc-row .what{color:var(--text);max-width:36em}
+.svc-row ul{margin:14px 0 0;padding:0;list-style:none;columns:2;column-gap:36px;color:var(--muted);font-size:15.5px}
+.svc-row li{position:relative;padding:3px 0 3px 18px;break-inside:avoid}
+.svc-row li::before{content:"";position:absolute;left:0;top:.95em;width:7px;height:1.5px;background:var(--brass)}
+
+/* process */
+.proc{background:var(--ink-deep);color:var(--white);margin-top:92px;padding:84px 0}
+.proc h2{color:var(--white)}
+.steps{margin-top:44px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid rgba(255,255,255,.22)}
+.step{padding:26px 32px 0 0}
+.step+.step{padding-left:32px;border-left:1px solid rgba(255,255,255,.22)}
+.step .n{font:500 40px/1 var(--serif);color:var(--brass-soft)}
+.step h3{font:600 20px/1.3 var(--sans);color:var(--white);margin:14px 0 8px}
+.step p{color:#C7DCDB}
+
+/* about */
+.about{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:64px;align-items:center}
+.about img{display:block;width:100%;height:auto;border-radius:4px}
+.about p{max-width:36em}
+.about p+p{margin-top:16px}
+.creds{margin:26px 0 0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.creds li{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15.5px}
+.creds li span:first-child{color:var(--muted);font-weight:500}
+
+/* explainer */
+.exp{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:56px;align-items:center}
+.exp img{display:block;width:100%;height:auto;border-radius:4px;border:1px solid var(--line)}
+.exp .when{font-size:14px;color:var(--muted);margin-bottom:10px;font-weight:500}
+.exp h3{font-size:clamp(1.6rem,3vw,2.2rem);line-height:1.15}
+.exp .links{margin-top:20px;display:flex;flex-wrap:wrap;gap:12px 24px;font-weight:600}
+
+/* faq */
+.faq{margin-top:40px;border-top:1.5px solid var(--ink);max-width:820px}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;list-style:none;padding:20px 40px 20px 0;font:500 21px/1.3 var(--serif);color:var(--ink);position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:6px;top:50%;transform:translateY(-52%);font:400 28px/1 var(--sans);color:var(--brass-dark)}
+.faq details[open] summary::after{content:"\2212"}
+.faq details p{padding:0 40px 22px 0;color:var(--muted);max-width:40em}
+
+/* contact */
+.contact{background:var(--mist);margin-top:92px;padding:84px 0}
+.contact .grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:56px;align-items:start}
+.contact .sub{color:var(--muted);margin-top:14px;max-width:28em}
+.direct{margin:30px 0 0;padding:0;list-style:none;border-top:1.5px solid var(--ink)}
+.direct li{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);font-size:16px}
+.direct li span:first-child{color:var(--muted);font-weight:500}
+.form{background:var(--white);border-radius:6px;padding:34px;box-shadow:0 1px 0 var(--line)}
+.form h3{font-size:1.7rem;line-height:1.15}
+.form .note{color:var(--muted);font-size:15px;margin-top:8px}
+.fields{margin-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.fields .full{grid-column:1/-1}
+label{display:block;font-weight:600;font-size:14.5px;margin-bottom:6px;color:var(--ink)}
+input,select{width:100%;min-height:48px;padding:10px 14px;border:1.5px solid #B9C8C7;border-radius:4px;background:var(--white);font:400 16px var(--sans);color:var(--text)}
+input:focus,select:focus{outline:3px solid var(--brass);outline-offset:1px;border-color:var(--ink)}
+.err{color:#9B2C1F;font-size:14px;margin-top:6px;min-height:1.2em}
+.sendrow{margin-top:20px;display:flex;flex-wrap:wrap;gap:12px}
+.tiny{margin-top:16px;font-size:13.5px;color:var(--muted);max-width:36em}
+
+
+/* tools */
+.tools{margin-top:44px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border-top:1.5px solid var(--ink)}
+.tool{padding:34px 40px 8px 0}
+.tool+.tool{padding:34px 0 8px 40px;border-left:1px solid var(--line)}
+.tool h3{font-size:1.75rem;line-height:1.15}
+.tool .lead{margin-top:8px;color:var(--muted);font-size:15.5px;max-width:30em}
+.tool .fields{grid-template-columns:1fr 1fr}
+.out{margin-top:24px;background:var(--white);border:1px solid var(--line);border-radius:4px;padding:22px 24px}
+.out .big{font:500 clamp(1.6rem,2.6vw,2.15rem)/1.15 var(--serif);color:var(--ink);overflow-wrap:anywhere}
+.out .cap{font-size:14px;color:var(--muted);margin-bottom:6px;font-weight:500}
+.out ul{margin:16px 0 0;padding:0;list-style:none;font-size:15.5px;color:var(--text)}
+.out li{position:relative;padding:4px 0 4px 18px}
+.out li::before{content:"";position:absolute;left:0;top:1.05em;width:7px;height:1.5px;background:var(--brass)}
+.out .warn{color:#7A2E12}
+.sip-rows{margin-top:16px;border-top:1px solid var(--line)}
+.sip-rows div{display:grid;grid-template-columns:1fr auto;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:16px}
+.sip-rows b{font-weight:600;color:var(--ink)}
+.sip-rows span{font-variant-numeric:tabular-nums}
+.tool .btn{margin-top:20px}
+.tool .small{margin:14px 0 22px;font-size:13.5px;color:var(--muted);max-width:34em}
+@media (max-width:980px){
+  .tools{grid-template-columns:1fr}
+  .tool,.tool+.tool{padding:30px 0 6px;border-left:0}
+  .tool+.tool{border-top:1px solid var(--line);margin-top:20px}
+}
+@media (max-width:640px){
+  .tool .fields{grid-template-columns:1fr}
+}
+
+/* footer */
+.foot{background:var(--ink-deep);color:#B8D0CF;padding:56px 0 56px;margin-top:0;font-size:15px}
+.foot .grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr);gap:40px}
+.foot b{display:block;color:var(--white);font:500 22px/1.2 var(--serif);margin-bottom:6px}
+.foot a{color:#E6F0EF}
+.foot ul{list-style:none;margin:0;padding:0}
+.foot li{padding:3px 0}
+.foot h4{margin:0 0 8px;color:var(--white);font:600 15px/1.3 var(--sans)}
+.legal{margin-top:36px;padding-top:24px;border-top:1px solid rgba(255,255,255,.18);font-size:13.5px;line-height:1.75;max-width:62em;color:#9DB9B8}
+.legal p+p{margin-top:8px}
+.chip{display:inline-block;background:var(--white);border-radius:6px;padding:4px 8px;margin-top:14px}
+.chip img{display:block;height:34px;width:auto}
+
+/* mobile action bar */
+.bar{display:none}
+
+@media (max-width:980px){
+  .hero .wrap{grid-template-columns:1fr;gap:0;padding-top:56px}
+  .hero-copy{padding-bottom:40px}
+  .hero-art{min-height:0;margin-top:8px}
+  .hero-art img{height:440px}
+  .hero-art::before{top:24px}
+  .reach .wrap{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .reach a:nth-child(3){border-left:0}
+  .reach a:nth-child(n+3){border-top:1px solid var(--line)}
+  .intro,.about,.exp,.contact .grid{grid-template-columns:1fr;gap:32px}
+  .svc-row{grid-template-columns:1fr;gap:10px}
+  .steps{grid-template-columns:1fr}
+  .step,.step+.step{padding:24px 0 0;border-left:0}
+  .step+.step{margin-top:24px;border-top:1px solid rgba(255,255,255,.22)}
+  .foot .grid{grid-template-columns:1fr}
+  .nav a.l{display:none}
+}
+@media (max-width:640px){
+  body{font-size:16.5px}
+  .wrap,.reach-shell{padding:0 20px}
+  section{padding-top:68px}
+  .proc{margin-top:68px;padding:64px 0}
+  .contact{margin-top:68px;padding:64px 0}
+  .svc-row ul{columns:1}
+  .fields{grid-template-columns:1fr}
+  .form{padding:24px 20px}
+  .creds li{grid-template-columns:1fr;gap:2px}
+  .direct li{grid-template-columns:1fr;gap:2px}
+  .nav .btn{display:none}
+  .reach a{padding:18px 18px}
+  .reach strong{font-size:17px}
+  .reach .wrap{grid-template-columns:1fr 1fr}
+  .reach a:nth-child(3){grid-column:1/-1;border-left:0}
+  .reach a:nth-child(4){grid-column:1/-1;border-left:0}
+  .hero-art img{height:380px}
+  .foot{padding-bottom:110px}
+  .bar{display:grid;grid-template-columns:1fr 1fr;position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--white);border-top:1px solid var(--line);box-shadow:0 -6px 20px rgba(5,25,27,.12);padding:10px 14px calc(10px + env(safe-area-inset-bottom));gap:10px}
+  .bar .btn{min-height:46px;padding:8px 12px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style>
 </head>
 <body>
-<div style="width:100%;box-sizing:border-box;background:#FFFFFF;color:#0E2A2D;font-family:'Figtree',system-ui,sans-serif;font-size:17px;line-height:1.55">
 
-<!-- NAV + HERO -->
-<div style="background:linear-gradient(135deg,#2A7A82 0%,#1F5E64 55%,#123F44 100%);color:#FFFFFF">
-<div style="max-width:1160px;margin:0 auto;padding:20px 24px 0;box-sizing:border-box;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px">
-<div style="display:flex;align-items:center;gap:12px">
-<div style="background:#FFFFFF;border-radius:12px;padding:6px 12px;display:flex;align-items:center"><img src="logo.png" width="330" height="215" alt="GroWithAnkiit logo" style="height:44px;width:auto;display:block"></div>
-</div>
-<div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px 22px;font-size:15px;font-weight:600">
-<a href="#cover" style="color:#FFFFFF;text-decoration:none;padding:10px 0">What I do</a>
-<a href="#learn" style="color:#FFFFFF;text-decoration:none;padding:10px 0">Updates</a>
-<a href="#about" style="color:#FFFFFF;text-decoration:none;padding:10px 0">About</a>
-<a href="#contact" style="color:#0E2A2D;background:#F2B705;text-decoration:none;padding:11px 18px;border-radius:999px;min-height:20px">Contact</a>
-</div>
-</div>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="#top" aria-label="Ankeet Bahety, home">
+      <b>Ankeet Bahety</b>
+      <span>Insurance and mutual funds</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a class="l" href="#services">Services</a>
+      <a class="l" href="#tools">Tools</a>
+      <a class="l" href="#how">How it works</a>
+      <a class="l" href="#about">About</a>
+      <a class="l" href="#questions">Questions</a>
+      <a class="btn btn-ink" href="#contact">Request a call back</a>
+    </nav>
+  </div>
+</header>
 
-<div style="max-width:1160px;margin:0 auto;padding:40px 24px 0;box-sizing:border-box;display:flex;flex-wrap:wrap;align-items:flex-end;gap:24px 56px">
-<div style="flex:1 1 440px;min-width:0;padding-bottom:64px">
-<div style="font-size:14px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#BFE0E2;margin-bottom:18px">Insurance and mutual funds · Pan India</div>
-<h1 style="margin:0 0 20px;font-family:'Bricolage Grotesque','Figtree',system-ui,sans-serif;font-weight:800;font-size:clamp(2.2rem,5.2vw,3.7rem);line-height:1.04;letter-spacing:-0.02em;text-wrap:balance">Insurance cover that fits your family or business, explained in plain words.</h1>
-<p style="margin:0 0 30px;font-size:19px;max-width:34em;color:#E3F1F1">I'm Ankeet Bahety. I help families, professionals and business owners choose life, health and general insurance, renew on time and get claims moving. I also help with SIPs and mutual funds.</p>
-<div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center">
-<a href="https://wa.me/919051731520?text=Hi%20Ankeet%2C%20I%27d%20like%20a%20free%20policy%20review." style="background:#F2B705;color:#0E2A2D;text-decoration:none;font-weight:700;padding:15px 26px;border-radius:999px;font-size:17px">Message me on WhatsApp</a>
-<a href="#contact" style="color:#FFFFFF;text-decoration:underline;text-underline-offset:4px;font-weight:600;padding:12px 4px">Ask for a free policy review</a>
-</div>
-<div style="margin-top:26px;font-size:13px;color:#BFE0E2">Insurance is the subject matter of solicitation.</div>
-</div>
-<div style="flex:0 1 380px;min-width:0;display:flex;justify-content:center;align-self:flex-end">
-<img src="ankeet-standing.webp" width="720" height="1411" alt="Ankeet Bahety, insurance agent and mutual fund distributor, Pan India" style="display:block;width:100%;max-width:360px;height:auto;max-height:640px;object-fit:contain;object-position:bottom">
-</div>
-</div>
-</div>
-
-<!-- FACTS -->
-<div style="background:#EDF4F4;border-bottom:1px solid #CFE0E0">
-<div style="max-width:1160px;margin:0 auto;padding:28px 24px;box-sizing:border-box;display:flex;flex-wrap:wrap;gap:20px 48px">
-<div style="flex:1 1 220px;min-width:0"><div style="font-family:'Bricolage Grotesque','Figtree',sans-serif;font-weight:800;font-size:28px;color:#1F5E64;line-height:1.1">Since 2020</div><div style="color:#4B6366;font-size:15px">In insurance, serving clients Pan India</div></div>
-<div style="flex:1 1 220px;min-width:0"><div style="font-family:'Bricolage Grotesque','Figtree',sans-serif;font-weight:800;font-size:28px;color:#1F5E64;line-height:1.1">Life, Health, General</div><div style="color:#4B6366;font-size:15px">One person to call for all three</div></div>
-<div style="flex:1 1 220px;min-width:0"><div style="font-family:'Bricolage Grotesque','Figtree',sans-serif;font-weight:800;font-size:28px;color:#1F5E64;line-height:1.1">Free review</div><div style="color:#4B6366;font-size:15px">No obligation to buy anything</div></div>
-</div>
+<main id="top">
+<div class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <h1>Insurance that fits your family or business, explained before you buy.</h1>
+      <p class="lede">I'm Ankeet Bahety, an insurance and mutual fund advisor in Kolkata. I help families, professionals and business owners across India choose cover, renew on time and get claims moving.</p>
+      <div class="acts">
+        <a class="btn btn-primary" href="#contact">Ask for a free policy review</a>
+        <a class="btn btn-outline" href="tel:+919051731520">Call +91 90517 31520</a>
+      </div>
+      <p class="fine">Insurance is the subject matter of solicitation.</p>
+    </div>
+    <div class="hero-art">
+      <img src="ankeet-standing.webp" width="720" height="1411" alt="Ankeet Bahety, IRDAI-licensed insurance agent and AMFI-registered mutual fund distributor">
+    </div>
+  </div>
 </div>
 
-<!-- WHO -->
-<div style="max-width:1160px;margin:0 auto;padding:72px 24px 24px;box-sizing:border-box">
-<h2 style="margin:0 0 12px;font-family:'Bricolage Grotesque','Figtree',sans-serif;font-weight:800;font-size:clamp(1.8rem,3.6vw,2.6rem);line-height:1.1;letter-spacing:-0.015em;text-wrap:balance">Who I work with</h2>
-<p style="margin:0 0 36px;color:#4B6366;max-width:40em">Most people reach out when a renewal is due, a family member needs cover, or a claim has gone quiet.</p>
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px 36px">
-<div style="border-top:3px solid #1F5E64;padding-top:16px"><div style="font-weight:700;font-size:19px;margin-bottom:6px">Families</div><div style="color:#3B5558">Health cover for every age at home, term cover for the earning member, and clear steps when a claim comes.</div></div>
-<div style="border-top:3px solid #1F5E64;padding-top:16px"><div style="font-weight:700;font-size:19px;margin-bottom:6px">Working professionals</div><div style="color:#3B5558">Cover that goes beyond your employer's group policy, and a clear view of which premiums qualify for tax benefits.</div></div>
-<div style="border-top:3px solid #1F5E64;padding-top:16px"><div style="font-weight:700;font-size:19px;margin-bottom:6px">Business owners</div><div style="color:#3B5558">Fire, property, motor and group health cover for your shop, factory or office, reviewed against what you could lose.</div></div>
-<div style="border-top:3px solid #1F5E64;padding-top:16px"><div style="font-weight:700;font-size:19px;margin-bottom:6px">Policyholders with a claim</div><div style="color:#3B5558">Help with documents, follow-up and understanding the insurer's reply.</div></div>
-</div>
-</div>
-
-<!-- COVER -->
-<div id="cover" style="max-width:1160px;margin:0 auto;padding:56px 24px 24px;box-sizing:border-box">
-<h2 style="margin:0 0 32px;font-family:'Bricolage Grotesque','Figtree',sans-serif;font-weight:800;font-size:clamp(1.8rem,3.6vw,2.6rem);line-height:1.1;letter-spacing:-0.015em;text-wrap:balance">What I help with</h2>
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:0 56px">
-<div style="padding:20px 0;border-top:1px solid #CFE0E0"><div style="font-weight:700;font-size:20px;color:#1F5E64;margin-bottom:4px">Health insurance</div><div style="color:#3B5558">Cover for every stage of life. I explain waiting periods, sub-limits and exclusions before you buy.</div><ul style="margin:10px 0 0;padding-left:20px;color:#3B5558"><li style="margin:2px 0">Individual and family floater plans</li><li style="margin:2px 0">Senior citizen health cover</li><li style="margin:2px 0">Top-up and super top-up plans, including higher covers of 1 crore and above</li><li style="margin:2px 0">Critical illness, cancer and heart cover</li><li style="margin:2px 0">Newly married couples</li><li style="margin:2px 0">Personal accident (individual and group)</li><li style="margin:2px 0">Global coverage plans</li><li style="margin:2px 0">Employee group health for your team</li></ul></div>
-<div style="padding:20px 0;border-top:1px solid #CFE0E0"><div style="font-weight:700;font-size:20px;color:#1F5E64;margin-bottom:4px">Life insurance</div><div style="color:#3B5558">A simple way to protect the people who depend on you, with cover sized to your income and loans.</div><ul style="margin:10px 0 0;padding-left:20px;color:#3B5558"><li style="margin:2px 0">Term insurance, for earning members and homemakers</li><li style="margin:2px 0">Term with return of premium</li><li style="margin:2px 0">Pension plans</li><li style="margin:2px 0">Endowment and whole life plans</li><li style="margin:2px 0">Children's education plans</li></ul></div>
-<div style="padding:20px 0;border-top:1px solid #CFE0E0"><div style="font-weight:700;font-size:20px;color:#1F5E64;margin-bottom:4px">Motor insurance</div><div style="color:#3B5558">Protection against accidents, theft and natural damage, renewed on time.</div><ul style="margin:10px 0 0;padding-left:20px;color:#3B5558"><li style="margin:2px 0">Private vehicles: car, SUV, bike</li><li style="margin:2px 0">Commercial vehicles: taxi, school bus, trucks</li><li style="margin:2px 0">Construction vehicles: tractor, tanker, tipper, hydra</li><li style="margin:2px 0">Electric vehicles of all types</li></ul></div>
-<div style="padding:20px 0;border-top:1px solid #CFE0E0"><div style="font-weight:700;font-size:20px;color:#1F5E64;margin-bottom:4px">Commercial insurance</div><div style="color:#3B5558">Cover for shops, offices and factories, reviewed against what you could lose.</div><ul style="margin:10px 0 0;padding-left:20px;color:#3B5558"><li style="margin:2px 0">Fire and burglary</li><li style="margin:2px 0">Marine, specific and open policies</li><li style="margin:2px 0">Employee compensation (workmen's compensation)</li><li style="margin:2px 0">Plant and machinery</li><li style="margin:2px 0">Professional indemnity</li><li style="margin:2px 0">Directors and officers liability</li><li style="margin:2px 0">Key man insurance</li></ul></div>
-<div style="padding:20px 0;border-top:1px solid #CFE0E0"><div style="font-weight:700;font-size:20px;color:#1F5E64;margin-bottom:4px">Travel and home insurance</div><div style="color:#3B5558">Short policies that are easy to forget until you need them.</div><ul style="margin:10px 0 0;padding-left:20px;color:#3B5558"><li style="margin:2px 0">Travel insurance for trips in India and abroad</li><li style="margin:2px 0">Home and property cover</li></ul></div>
-<div style="padding:20px 0;border-top:1px solid #CFE0E0"><div style="font-weight:700;font-size:20px;color:#1F5E64;margin-bottom:4px">Claims support</div><div style="color:#3B5558">A documents checklist, filing steps and follow-up with the insurer.</div></div>
-<div style="padding:20px 0;border-top:1px solid #CFE0E0"><div style="font-weight:700;font-size:20px;color:#1F5E64;margin-bottom:4px">SIPs and mutual funds</div><div style="color:#3B5558">Help starting and managing SIPs as an AMFI-registered Mutual Fund Distributor. Mutual fund investments are subject to market risks.</div></div>
-</div>
+<div class="reach-shell">
+  <div class="reach" role="group" aria-label="Ways to reach me">
+    <div class="wrap">
+      <a href="tel:+919051731520"><small>Call</small><strong>+91 90517 31520</strong></a>
+      <a id="wa1" href="https://wa.me/919051731520?text=Hi%20Ankeet%2C%20I%27d%20like%20a%20free%20policy%20review."><small>WhatsApp</small><strong>Message me</strong></a>
+      <a id="em1" href="#contact"><small>Email</small><strong>Show address</strong></a>
+      <a href="#contact"><small>Prefer a call back?</small><strong>Send your details</strong></a>
+    </div>
+  </div>
 </div>
 
-<!-- HOW -->
-<div style="background:#123F44;color:#FFFFFF;margin-top:48px">
-<div style="max-width:1160px;margin:0 auto;padding:64px 24px;box-sizing:border-box">
-<h2 style="margin:0 0 36px;font-family:'Bricolage Grotesque','Figtree',sans-serif;font-weight:800;font-size:clamp(1.8rem,3.6vw,2.6rem);line-height:1.1;letter-spacing:-0.015em">How a review works</h2>
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:32px">
-<div><div style="font-family:'Bricolage Grotesque','Figtree',sans-serif;font-weight:800;font-size:44px;color:#F2B705;line-height:1">1</div><div style="font-weight:700;font-size:20px;margin:10px 0 6px">Send your policies</div><div style="color:#CFE5E6">Share your current policies on WhatsApp, or tell me what you are looking for. No forms to fill.</div></div>
-<div><div style="font-family:'Bricolage Grotesque','Figtree',sans-serif;font-weight:800;font-size:44px;color:#F2B705;line-height:1">2</div><div style="font-weight:700;font-size:20px;margin:10px 0 6px">I review and explain</div><div style="color:#CFE5E6">You get a short, plain-language note on what is covered, what is missing and what each option costs.</div></div>
-<div><div style="font-family:'Bricolage Grotesque','Figtree',sans-serif;font-weight:800;font-size:44px;color:#F2B705;line-height:1">3</div><div style="font-weight:700;font-size:20px;margin:10px 0 6px">You decide</div><div style="color:#CFE5E6">No pressure. If you go ahead, I handle the paperwork and remind you before renewal.</div></div>
-</div>
-</div>
+<section id="services">
+  <div class="wrap">
+    <div class="intro">
+      <h2>What I help with</h2>
+      <p class="sub">Most people reach out when a renewal is due, a family member needs cover, or a claim has gone quiet. One person to speak to for life, health and general insurance, and for SIPs.</p>
+    </div>
+    <div class="svc">
+      <div class="svc-row">
+        <h3>Health insurance</h3>
+        <div><p class="what">Cover for every stage of life. I explain waiting periods, sub-limits and exclusions before you buy.</p>
+        <ul><li>Individual and family floater plans</li><li>Senior citizen health cover</li><li>Top-up and super top-up plans, including covers of 1 crore and above</li><li>Critical illness, cancer and heart cover</li><li>Newly married couples</li><li>Personal accident (individual and group)</li><li>Global coverage plans</li><li>Employee group health for your team</li></ul></div>
+      </div>
+      <div class="svc-row">
+        <h3>Life insurance</h3>
+        <div><p class="what">A simple way to protect the people who depend on you, with cover sized to your income and loans.</p>
+        <ul><li>Term insurance, for earning members and homemakers</li><li>Term with return of premium</li><li>Pension plans</li><li>Endowment and whole life plans</li><li>Children's education plans</li></ul></div>
+      </div>
+      <div class="svc-row">
+        <h3>Motor insurance</h3>
+        <div><p class="what">Protection against accidents, theft and natural damage, renewed on time.</p>
+        <ul><li>Private vehicles: car, SUV, bike</li><li>Commercial vehicles: taxi, school bus, trucks</li><li>Construction vehicles: tractor, tanker, tipper, hydra</li><li>Electric vehicles of all types</li></ul></div>
+      </div>
+      <div class="svc-row">
+        <h3>Business insurance</h3>
+        <div><p class="what">Cover for shops, offices and factories, reviewed against what you could lose.</p>
+        <ul><li>Fire and burglary</li><li>Marine, specific and open policies</li><li>Employee compensation (workmen's compensation)</li><li>Plant and machinery</li><li>Professional indemnity</li><li>Directors and officers liability</li><li>Key man insurance</li></ul></div>
+      </div>
+      <div class="svc-row">
+        <h3>Travel and home</h3>
+        <div><p class="what">Short policies that are easy to forget until you need them.</p>
+        <ul><li>Travel insurance for trips in India and abroad</li><li>Home and property cover</li></ul></div>
+      </div>
+      <div class="svc-row">
+        <h3>Claims support</h3>
+        <div><p class="what">A documents checklist, filing steps and follow-up with the insurer. If a claim has gone quiet, I help you understand the insurer's reply and the next step.</p></div>
+      </div>
+      <div class="svc-row">
+        <h3>SIPs and mutual funds</h3>
+        <div><p class="what">Help starting and managing SIPs as an AMFI-registered Mutual Fund Distributor. Mutual fund investments are subject to market risks. Read all scheme related documents carefully.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="tools">
+  <div class="wrap">
+    <div class="intro">
+      <h2>Two quick tools</h2>
+      <p class="sub">Get a first idea of term cover or a monthly SIP in a minute. They give general guidance only, nothing you enter is stored, and I will go through the results with you on a call.</p>
+    </div>
+    <div class="tools">
+
+      <div class="tool" id="term">
+        <h3>Term plan check</h3>
+        <p class="lead">See how much cover people in your position usually look at, and what an insurer will ask for.</p>
+        <div class="fields">
+          <div><label for="t-age">Your age</label><input id="t-age" type="number" inputmode="numeric" min="18" max="80" placeholder="For example 34"></div>
+          <div><label for="t-term">Cover needed for (years)</label><input id="t-term" type="number" inputmode="numeric" min="5" max="60" placeholder="For example 30"></div>
+          <div><label for="t-inc">Yearly income (lakh rupees)</label><input id="t-inc" type="number" inputmode="decimal" min="0" step="0.5" placeholder="For example 18"></div>
+          <div><label for="t-occ">You are</label>
+            <select id="t-occ"><option value="Salaried">Salaried</option><option value="Self-employed">Self-employed</option><option value="Business owner">A business owner</option></select></div>
+          <div><label for="t-tob">Do you smoke or use tobacco?</label>
+            <select id="t-tob"><option value="No">No</option><option value="Yes">Yes</option></select></div>
+          <div><label for="t-health">Any health condition?</label>
+            <select id="t-health"><option value="No">No</option><option value="Yes">Yes</option><option value="Not sure">Not sure</option></select></div>
+        </div>
+        <div class="out" id="t-out" aria-live="polite"><div class="cap">Your result</div><div class="big">Enter your age, the years of cover and your income to see it here.</div></div>
+        <button type="button" class="btn btn-primary" id="t-send">Request a call back</button>
+        <p class="small">General guidance only, not a quote or personal advice. Eligibility and premium are decided by the insurer after underwriting. Insurance is the subject matter of solicitation.</p>
+      </div>
+
+      <div class="tool" id="sip">
+        <h3>SIP calculator</h3>
+        <p class="lead">See what a monthly SIP could grow to under a few assumed rates of return.</p>
+        <div class="fields">
+          <div><label for="s-amt">Monthly SIP (rupees)</label><input id="s-amt" type="number" inputmode="numeric" min="500" step="500" value="10000"></div>
+          <div><label for="s-yrs">Years</label><input id="s-yrs" type="number" inputmode="numeric" min="1" max="40" value="10"></div>
+        </div>
+        <div class="out" id="s-out" aria-live="polite"></div>
+        <button type="button" class="btn btn-primary" id="s-send">Request a call back</button>
+        <p class="small">This is an illustration with assumed rates. It is not a forecast and returns are not guaranteed. Mutual fund investments are subject to market risks. Read all scheme related documents carefully. Past performance may or may not be sustained.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="proc" id="how">
+  <div class="wrap">
+    <h2>How a review works</h2>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>Send your policies</h3><p>Share your current policies on WhatsApp, or tell me what you are looking for. No forms are needed.</p></div>
+      <div class="step"><div class="n">2</div><h3>I review and explain</h3><p>You get a short, plain-language note on what is covered, what is missing and what each option costs.</p></div>
+      <div class="step"><div class="n">3</div><h3>You decide</h3><p>No pressure. If you go ahead, I handle the paperwork and remind you before renewal.</p></div>
+    </div>
+  </div>
 </div>
 
-<!-- LEARN -->
-<div id="learn" style="max-width:1160px;margin:0 auto;padding:72px 24px 24px;box-sizing:border-box">
-<h2 style="margin:0 0 12px;font-family:'Bricolage Grotesque','Figtree',sans-serif;font-weight:800;font-size:clamp(1.8rem,3.6vw,2.6rem);line-height:1.1;letter-spacing:-0.015em;text-wrap:balance">Plain-language updates</h2>
-<p style="margin:0 0 36px;color:#4B6366;max-width:40em">A short explainer on one insurance story every Monday, Wednesday, Friday and Saturday, on LinkedIn and Instagram.</p>
-<div style="display:flex;flex-wrap:wrap;gap:32px 56px;align-items:center">
-<div style="flex:0 1 380px;min-width:0"><img loading="lazy" src="bima-sugam-explainer.jpg" alt="Infographic: Bima Sugam launch moved from September to November, what is reported and what is not confirmed" style="display:block;width:100%;height:auto;border-radius:10px;border:1px solid #CFE0E0"></div>
-<div style="flex:1 1 360px;min-width:0">
-<div style="font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#1F5E64;margin-bottom:10px">Latest explainer · 9 October 2026</div>
-<h3 style="margin:0 0 14px;font-family:'Bricolage Grotesque','Figtree',sans-serif;font-weight:800;font-size:clamp(1.5rem,3vw,2.1rem);line-height:1.15;letter-spacing:-0.01em;text-wrap:balance">Bima Sugam: launch moved from September to November</h3>
-<p style="margin:0 0 22px;color:#3B5558">What is reported, what is not confirmed yet, and what to do about your own policy while you wait. Your existing cover does not change.</p>
-<div style="display:flex;flex-wrap:wrap;gap:12px 22px">
-<a href="https://www.instagram.com/p/DeRUN9QIF6Q/" style="font-weight:700;color:#1F5E64">See it on Instagram</a>
-<a href="https://www.linkedin.com/feed/update/urn:li:share:7514267494925180928/" style="font-weight:700;color:#1F5E64">See it on LinkedIn</a>
-</div>
-</div>
-</div>
-</div>
+<section id="about">
+  <div class="wrap about">
+    <img loading="lazy" src="ankeet-about.jpg" width="800" height="1000" alt="Ankeet Bahety">
+    <div>
+      <h2>About Ankeet</h2>
+      <p style="margin-top:22px">I started in insurance in 2020 and work with families and business owners across India. My approach is simple: explain the policy before you buy it, and stay available when you claim.</p>
+      <p>I am an IRDAI-licensed insurance agent for life, health and general insurance, and an AMFI-registered Mutual Fund Distributor, serving clients Pan India. Registration details are available on request.</p>
+      <ul class="creds">
+        <li><span>Based in</span><span>Kolkata, West Bengal. Clients across India.</span></li>
+        <li><span>In insurance since</span><span>2020</span></li>
+        <li><span>Education</span><span>M.Sc. International Business, Hult International Business School (2019). B.Com (Honours), University of Calcutta (2015).</span></li>
+        <li><span>Connect</span><span><a href="https://www.linkedin.com/in/ankeet-bahety-38492690/">LinkedIn</a> and <a href="https://www.instagram.com/growithankiit/">Instagram</a></span></li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-<!-- ABOUT -->
-<div id="about" style="max-width:1160px;margin:0 auto;padding:72px 24px 24px;box-sizing:border-box">
-<div style="display:flex;flex-wrap:wrap;gap:32px 64px;align-items:center">
-<div style="flex:0 1 380px;min-width:0"><img loading="lazy" src="ankeet-about.jpg" alt="Ankeet Bahety" style="display:block;width:100%;height:auto;border-radius:10px"></div>
-<div style="flex:1 1 380px;min-width:0">
-<h2 style="margin:0 0 18px;font-family:'Bricolage Grotesque','Figtree',sans-serif;font-weight:800;font-size:clamp(1.8rem,3.6vw,2.6rem);line-height:1.1;letter-spacing:-0.015em">About Ankeet</h2>
-<p style="margin:0 0 16px;max-width:36em">I started in insurance in 2020 and work with families and business owners across India. My approach is simple: explain the policy before you buy it, and stay available when you claim.</p>
-<p style="margin:0 0 16px;max-width:36em;color:#3B5558">M.Sc. in International Business, Hult International Business School (2019).<br>B.Com (Honours), University of Calcutta (2015).</p>
-<p style="margin:0 0 16px;max-width:36em;color:#3B5558">I am an IRDAI-licensed insurance agent for life, health and general insurance, and an AMFI-registered Mutual Fund Distributor, serving clients Pan India. Registration details are available on request.</p>
-<a href="https://www.linkedin.com/in/ankeet-bahety-38492690/" style="display:inline-block;font-weight:700;color:#1F5E64">Connect with me on LinkedIn</a>
-</div>
-</div>
-</div>
+<section id="updates">
+  <div class="wrap">
+    <div class="exp">
+      <img loading="lazy" src="bima-sugam-explainer.jpg" width="1080" height="1350" alt="Infographic: Bima Sugam launch moved from September to November, what is reported and what is not confirmed">
+      <div>
+        <h2 style="font-size:clamp(1.6rem,2.6vw,2.1rem);margin-bottom:22px">Plain-language updates</h2>
+        <p class="when">Latest explainer, 9 October 2026</p>
+        <h3>Bima Sugam: launch moved from September to November</h3>
+        <p style="margin-top:14px;color:var(--muted);max-width:34em">What is reported, what is not confirmed yet, and what to do about your own policy while you wait. Your existing cover does not change.</p>
+        <p style="margin-top:14px;color:var(--muted);max-width:34em">I explain one insurance story every Monday, Wednesday, Friday and Saturday on LinkedIn and Instagram.</p>
+        <div class="links">
+          <a href="https://www.instagram.com/p/DeRUN9QIF6Q/">See it on Instagram</a>
+          <a href="https://www.linkedin.com/feed/update/urn:li:share:7514267494925180928/">See it on LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<!-- CONTACT -->
-<div id="contact" style="background:#EDF4F4;margin-top:72px">
-<div style="max-width:1160px;margin:0 auto;padding:64px 24px;box-sizing:border-box;display:flex;flex-wrap:wrap;gap:40px 64px">
-<div style="flex:1 1 400px;min-width:0">
-<h2 style="margin:0 0 12px;font-family:'Bricolage Grotesque','Figtree',sans-serif;font-weight:800;font-size:clamp(1.8rem,3.6vw,2.6rem);line-height:1.1;letter-spacing:-0.015em;text-wrap:balance">Ask for a free policy review</h2>
-<p style="margin:0 0 20px;color:#3B5558">Pick what you need and your message is ready to send on WhatsApp.</p>
-<div id="chips" style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px"></div>
-<a id="wa" href="https://wa.me/919051731520" style="display:inline-block;background:#1F5E64;color:#FFFFFF;text-decoration:none;font-weight:700;padding:15px 26px;border-radius:999px;font-size:17px">Open WhatsApp with this message</a>
-<p style="margin:16px 0 0;font-size:14px;color:#4B6366;max-width:34em">Nothing is sent until you press send in WhatsApp. I use your details only to reply to your enquiry.</p>
-</div>
-<div style="flex:1 1 300px;min-width:0">
-<div style="font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#1F5E64;margin-bottom:14px">Or reach me directly</div>
-<div style="margin-bottom:14px"><div style="font-weight:700">WhatsApp and phone</div><div><a href="tel:+919051731520">+91 9051731520</a></div></div>
-<div style="margin-bottom:14px"><div style="font-weight:700">Email</div><div style="overflow-wrap:anywhere"><a id="em" href="#contact">Show email address</a><noscript>insurance [at] ankeetbahety.in</noscript></div></div>
-<div style="margin-bottom:14px"><div style="font-weight:700">LinkedIn</div><div><a href="https://www.linkedin.com/in/ankeet-bahety-38492690/">Ankeet Bahety on LinkedIn</a></div></div>
-<div style="margin-bottom:14px"><div style="font-weight:700">Instagram</div><div><a href="https://www.instagram.com/growithankiit/">@growithankiit</a></div></div>
-<div><div style="font-weight:700">Based in</div><div>Kolkata, West Bengal</div></div>
-</div>
-</div>
-</div>
+<section id="questions">
+  <div class="wrap">
+    <h2>Questions people ask first</h2>
+    <div class="faq">
+      <details><summary>Does the policy review cost anything?</summary><p>No. The review is free and you are under no obligation to buy anything.</p></details>
+      <details><summary>How are you paid?</summary><p>For insurance, the insurer pays me a commission when a policy is issued, and the premium you pay is the same as buying directly. For mutual funds, I distribute regular plans, where a distribution commission is built into the fund's expense ratio. Direct plans cost less and you can buy them yourself, and I will tell you that if you ask.</p></details>
+      <details><summary>Do you work with one insurance company?</summary><p>No. I can place policies with several insurers, so I compare options for your situation instead of offering one product.</p></details>
+      <details><summary>I already have a policy. Can you still help?</summary><p>Yes. Send me the policy and I will tell you in plain words what it covers and what it does not. I also help with renewals and with claims.</p></details>
+      <details><summary>I do not live in Kolkata. Can we still work together?</summary><p>Yes. I work with clients across India over phone and WhatsApp.</p></details>
+    </div>
+  </div>
+</section>
 
-<!-- FOOTER -->
-<div style="background:#0E2A2D;color:#BFD6D7">
-<div style="max-width:1160px;margin:0 auto;padding:36px 24px 44px;box-sizing:border-box">
-<div style="color:#FFFFFF;font-weight:700;font-size:18px;margin-bottom:4px">Ankeet Bahety</div>
-<div style="margin-bottom:12px">IRDAI-licensed Insurance Agent (Life, Health, General) · AMFI-registered Mutual Fund Distributor · Pan India</div>
-<div style="display:flex;flex-wrap:wrap;gap:8px 22px;margin-bottom:18px;font-weight:600"><a href="https://www.linkedin.com/in/ankeet-bahety-38492690/" style="color:#FFFFFF">LinkedIn</a><a href="https://www.instagram.com/growithankiit/" style="color:#FFFFFF">Instagram</a><a href="https://wa.me/919051731520" style="color:#FFFFFF">WhatsApp</a></div>
-<div style="font-size:13px;line-height:1.7;max-width:60em">Insurance is the subject matter of solicitation. Mutual fund investments are subject to market risks. Read all scheme related documents carefully. This website gives general information and is not personal advice. Registration details are available on request.</div>
-<div style="font-size:13px;margin-top:14px">© 2026 GroWithAnkiit</div>
+<div class="contact" id="contact">
+  <div class="wrap grid">
+    <div>
+      <h2>Ask for a free policy review</h2>
+      <p class="sub">Call or message me directly, or send your details and I will get back to you.</p>
+      <ul class="direct">
+        <li><span>Phone</span><span><a href="tel:+919051731520">+91 90517 31520</a></span></li>
+        <li><span>WhatsApp</span><span><a id="wa2" href="https://wa.me/919051731520">Open a chat</a></span></li>
+        <li><span>Email</span><span><a id="em2" href="#contact">Show address</a><noscript>insurance [at] ankeetbahety.in</noscript></span></li>
+        <li><span>Based in</span><span>Kolkata, West Bengal</span></li>
+      </ul>
+    </div>
+    <form class="form" id="enq" novalidate>
+      <h3>Request a call back</h3>
+      <p class="note">Fill in the details below. Your message opens in WhatsApp or your email app, and nothing is sent until you press send there.</p>
+      <div class="fields">
+        <div><label for="f-name">Your name</label><input id="f-name" name="name" autocomplete="name" required><div class="err" id="e-name"></div></div>
+        <div><label for="f-phone">Mobile number</label><input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required><div class="err" id="e-phone"></div></div>
+        <div><label for="f-topic">I need help with</label>
+          <select id="f-topic" name="topic"><option>Health insurance</option><option>Life insurance</option><option>Motor insurance</option><option>Business insurance</option><option>Travel or home insurance</option><option>A claim</option><option>SIP or mutual funds</option><option>Reviewing my current policies</option></select></div>
+        <div><label for="f-time">Best time to call</label>
+          <select id="f-time" name="time"><option>Morning</option><option>Afternoon</option><option>Evening</option><option>Any time</option></select></div>
+      </div>
+      <div class="sendrow">
+        <button type="button" class="btn btn-primary" id="send-wa">Send on WhatsApp</button>
+        <button type="button" class="btn btn-line" id="send-em">Send by email</button>
+      </div>
+      <p class="tiny">This website does not store what you type. I use your details only to reply to your enquiry.</p>
+    </form>
+  </div>
 </div>
-</div>
+</main>
 
+<footer class="foot">
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <b>Ankeet Bahety</b>
+        <p>IRDAI-licensed Insurance Agent (Life, Health, General). AMFI-registered Mutual Fund Distributor. Pan India.</p>
+        <div class="chip"><img src="logo.png" alt="GroWithAnkiit" width="330" height="215"></div>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul><li><a href="#services">Services</a></li><li><a href="#how">How a review works</a></li><li><a href="#about">About</a></li><li><a href="#questions">Questions</a></li></ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul><li><a href="tel:+919051731520">+91 90517 31520</a></li><li><a id="wa3" href="https://wa.me/919051731520">WhatsApp</a></li><li><a href="https://www.linkedin.com/in/ankeet-bahety-38492690/">LinkedIn</a></li><li><a href="https://www.instagram.com/growithankiit/">Instagram</a></li></ul>
+      </div>
+    </div>
+    <div class="legal">
+      <p>Insurance is the subject matter of solicitation. Mutual fund investments are subject to market risks. Read all scheme related documents carefully. This website gives general information and is not personal advice. Registration details are available on request.</p>
+      <p>&copy; 2026 GroWithAnkiit</p>
+    </div>
+  </div>
+</footer>
+
+<div class="bar" aria-label="Quick contact">
+  <a class="btn btn-ink" href="tel:+919051731520">Call</a>
+  <a class="btn btn-primary" href="https://wa.me/919051731520?text=Hi%20Ankeet%2C%20I%27d%20like%20a%20free%20policy%20review.">WhatsApp</a>
 </div>
 
 <script>
 (function(){
-  var labels=['Health insurance','Life insurance','Motor insurance','Business cover','Travel insurance','A claim','SIP or mutual funds'];
-  var cur=labels[0];
-  var on='cursor:pointer;font:inherit;font-weight:600;font-size:15px;padding:10px 16px;border-radius:999px;border:2px solid #1F5E64;background:#1F5E64;color:#FFFFFF;min-height:44px';
-  var off='cursor:pointer;font:inherit;font-weight:600;font-size:15px;padding:10px 16px;border-radius:999px;border:2px solid #1F5E64;background:#FFFFFF;color:#1F5E64;min-height:44px';
-  var box=document.getElementById('chips'), wa=document.getElementById('wa');
-  function render(){
-    box.innerHTML='';
-    labels.forEach(function(l){
-      var b=document.createElement('button');
-      b.type='button'; b.textContent=l; b.style.cssText=(l===cur?on:off);
-      b.setAttribute('aria-pressed', l===cur ? 'true':'false');
-      b.onclick=function(){cur=l;render();};
-      box.appendChild(b);
-    });
-    wa.href='https://wa.me/919051731520?text='+encodeURIComponent("Hi Ankeet, I'd like a free policy review for: "+cur+".");
+  var user='insurance', host='ankeetbahety.in';
+  var addr=[user,host].join(String.fromCharCode(64));
+  ['em1','em2'].forEach(function(id){
+    var el=document.getElementById(id); if(!el) return;
+    el.href='mailto:'+addr;
+    var s=el.querySelector('strong');
+    if(s){ s.textContent=addr; } else { el.textContent=addr; }
+  });
+  var WA='919051731520';
+  function val(id){return document.getElementById(id).value.trim();}
+  function check(){
+    var ok=true, n=val('f-name'), p=val('f-phone');
+    document.getElementById('e-name').textContent = n ? '' : 'Enter your name.';
+    var digits=p.replace(/[^0-9]/g,'');
+    document.getElementById('e-phone').textContent = digits.length>=10 ? '' : 'Enter a 10-digit mobile number.';
+    return !!n && digits.length>=10;
   }
-  render();
-  var em=document.getElementById('em');
-  if(em){var u=['insurance','ankeetbahety.in'].join(String.fromCharCode(64));em.textContent=u;em.href='mailto:'+u;}
+  function msg(){
+    return 'Hi Ankeet, I would like a call back.\n'+
+      'Name: '+val('f-name')+'\n'+
+      'Mobile: '+val('f-phone')+'\n'+
+      'Help needed with: '+val('f-topic')+'\n'+
+      'Best time to call: '+val('f-time');
+  }
+  document.getElementById('send-wa').addEventListener('click',function(){
+    if(!check()) return;
+    window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(msg()),'_blank','noopener');
+  });
+  document.getElementById('send-em').addEventListener('click',function(){
+    if(!check()) return;
+    window.location.href='mailto:'+addr+'?subject='+encodeURIComponent('Call back request')+'&body='+encodeURIComponent(msg());
+  });
+  document.getElementById('enq').addEventListener('submit',function(e){e.preventDefault();});
 })();
 </script>
+
+<script>
+(function(){
+  var WA='919051731520';
+  function $(id){return document.getElementById(id);}
+  function num(id){var v=parseFloat($(id).value);return isFinite(v)?v:NaN;}
+  function inr(n){
+    n=Math.round(n);
+    if(n>=1e7){var c=n/1e7;return '\u20B9'+(Math.round(c*100)/100).toString()+' crore';}
+    if(n>=1e5){var l=n/1e5;return '\u20B9'+(Math.round(l*10)/10).toString()+' lakh';}
+    return '\u20B9'+n.toLocaleString('en-IN');
+  }
+  function openWA(text){window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(text),'_blank','noopener');}
+  function esc(t){return String(t).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
+
+  /* ---- term plan check ---- */
+  var termState=null;
+  function term(){
+    var age=num('t-age'), yrs=num('t-term'), inc=num('t-inc');
+    var occ=$('t-occ').value, tob=$('t-tob').value, hl=$('t-health').value;
+    var out=$('t-out');
+    termState=null;
+    if(!(age>0)||!(yrs>0)||!(inc>0)){
+      out.innerHTML='<div class="cap">Your result</div><div class="big">Enter your age, the years of cover and your income to see it here.</div>';
+      return;
+    }
+    if(age<18||age>80||yrs<5||yrs>60){
+      out.innerHTML='<div class="cap">Your result</div><div class="big">Please check the numbers.</div><ul><li>Age should be between 18 and 80, and the cover period between 5 and 60 years.</li></ul>';
+      return;
+    }
+    var lo=inc*1e5*10, hi=inc*1e5*15;
+    var notes=[], ok=true;
+    if(age>65){ok=false;notes.push('<span class="warn">Most term plans accept new applicants only up to about age 65, so options at this age are limited. Call me and I will check what is possible.</span>');}
+    else {notes.push('Most insurers accept term-plan applicants from 18 up to about 65. The exact limit differs by insurer and plan.');}
+    if(age+yrs>85){ok=false;notes.push('<span class="warn">Age plus cover period comes to '+(age+yrs)+'. Many plans end cover between age 75 and 85, so a shorter period may be needed.</span>');}
+    else {notes.push('Your cover would run until about age '+(age+yrs)+'. Check that the plan you choose allows this.');}
+    notes.push('A common starting point is 10 to 15 times your yearly income. The right figure also depends on your loans, family needs and savings.');
+    if(tob==='Yes'){notes.push('Tobacco use usually raises the premium. Declare it truthfully, because a wrong answer can lead to a rejected claim.');}
+    if(hl!=='No'){notes.push('Health conditions can mean extra medical tests, a higher premium or special terms. Tell the insurer everything you know.');}
+    else {notes.push('Higher covers usually need a medical check-up, even with no health condition.');}
+    notes.push(occ==='Salaried'?'Be ready with recent salary slips, your Form 16 or income tax returns, and ID and address proof.':'Be ready with your last two to three years of income tax returns, and ID and address proof.');
+    out.innerHTML='<div class="cap">Cover people in your position usually look at</div><div class="big">'+inr(lo)+' to '+inr(hi)+'</div><ul>'+notes.map(function(n){return '<li>'+n+'</li>';}).join('')+'</ul>';
+    termState={age:age,yrs:yrs,lo:lo,hi:hi,tob:tob,occ:occ};
+  }
+  ['t-age','t-term','t-inc','t-occ','t-tob','t-health'].forEach(function(id){$(id).addEventListener('input',term);$(id).addEventListener('change',term);});
+  $('t-send').addEventListener('click',function(){
+    if(!termState){
+      term();
+      var f=$('t-age'); if(!(num('t-age')>0)){f.focus();}
+      else if(!(num('t-term')>0)){$('t-term').focus();}
+      else if(!(num('t-inc')>0)){$('t-inc').focus();}
+      return;
+    }
+    var t=termState;
+    openWA('Hi Ankeet, I would like a call back about a term plan.\n'+
+      'My age: '+t.age+'\n'+
+      'Cover period I am looking for: '+t.yrs+' years\n'+
+      'Cover I am considering: about '+inr(t.lo)+' to '+inr(t.hi)+'\n'+
+      'Tobacco use: '+t.tob+'\n'+
+      'I am: '+t.occ+'\n'+
+      'Please share a list of suitable term plans.');
+  });
+
+  /* ---- SIP calculator ---- */
+  var sipState=null;
+  function fv(p,rate,yrs){
+    var i=rate/100/12, n=Math.round(yrs*12);
+    return p*((Math.pow(1+i,n)-1)/i)*(1+i);
+  }
+  function sip(){
+    var p=num('s-amt'), y=num('s-yrs'), out=$('s-out');
+    sipState=null;
+    if(!(p>=500)||!(y>=1)||y>40){
+      out.innerHTML='<div class="cap">Illustration</div><div class="big">Enter a monthly amount of at least \u20B9500 and 1 to 40 years.</div>';
+      return;
+    }
+    var invested=p*Math.round(y*12);
+    var rows=[8,10,12].map(function(r){return '<div><b>If it grows at '+r+'% a year</b><span>'+inr(fv(p,r,y))+'</span></div>';}).join('');
+    out.innerHTML='<div class="cap">You would invest</div><div class="big">'+inr(invested)+'</div>'+
+      '<div class="sip-rows"><div style="border-bottom:0;padding-bottom:0;color:var(--muted)"><span>Illustrative value at the end of '+y+' years, under assumed rates</span><span></span></div>'+rows+'</div>';
+    sipState={p:p,y:y};
+  }
+  ['s-amt','s-yrs'].forEach(function(id){$(id).addEventListener('input',sip);});
+  $('s-send').addEventListener('click',function(){
+    if(!sipState){sip();return;}
+    openWA('Hi Ankeet, I would like a call back about starting a SIP.\nMonthly amount I am considering: '+inr(sipState.p)+'\nFor about '+sipState.y+' years.\nPlease call me to discuss the options.');
+  });
+  sip();
+})();
+</script>
+
 </body>
 </html>
