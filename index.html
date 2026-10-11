@@ -149,6 +149,11 @@ section{padding:92px 0 0}
 .fields{margin-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .fields .full{grid-column:1/-1}
 label{display:block;font-weight:600;font-size:14.5px;margin-bottom:6px;color:var(--ink)}
+textarea{width:100%;min-height:84px;padding:10px 14px;border:1.5px solid #B9C8C7;border-radius:4px;background:var(--white);font:400 16px var(--sans);color:var(--text);resize:vertical}
+textarea:focus{outline:3px solid var(--brass);outline-offset:1px;border-color:var(--ink)}
+.need{margin-top:12px;color:#8A2D1B;font-size:14.5px;font-weight:500}
+.need[hidden]{display:none}
+label .opt{color:var(--muted);font-weight:400}
 input,select{width:100%;min-height:48px;padding:10px 14px;border:1.5px solid #B9C8C7;border-radius:4px;background:var(--white);font:400 16px var(--sans);color:var(--text)}
 input:focus,select:focus{outline:3px solid var(--brass);outline-offset:1px;border-color:var(--ink)}
 .err{color:#9B2C1F;font-size:14px;margin-top:6px;min-height:1.2em}
@@ -348,8 +353,9 @@ input:focus,select:focus{outline:3px solid var(--brass);outline-offset:1px;borde
         <h3>Term plan check</h3>
         <p class="lead">See how much cover people in your position usually look at, and what an insurer will ask for.</p>
         <div class="fields">
+          <div class="full"><label for="t-name">Your name</label><input id="t-name" type="text" autocomplete="name" placeholder="So I know who to call"></div>
           <div><label for="t-age">Your age</label><input id="t-age" type="number" inputmode="numeric" min="18" max="80" placeholder="For example 34"></div>
-          <div><label for="t-term">Cover needed for (years)</label><input id="t-term" type="number" inputmode="numeric" min="5" max="60" placeholder="For example 30"></div>
+          <div><label for="t-term">Cover needed until age</label><select id="t-term"><option value="">Choose one</option><option value="70">70 years</option><option value="75">75 years</option><option value="80">80 years</option><option value="85">85 years</option><option value="99">99 years</option></select></div>
           <div><label for="t-inc">Yearly income (lakh rupees)</label><input id="t-inc" type="number" inputmode="decimal" min="0" step="0.5" placeholder="For example 18"></div>
           <div><label for="t-occ">You are</label>
             <select id="t-occ"><option value="Salaried">Salaried</option><option value="Self-employed">Self-employed</option><option value="Business owner">A business owner</option></select></div>
@@ -357,9 +363,13 @@ input:focus,select:focus{outline:3px solid var(--brass);outline-offset:1px;borde
             <select id="t-tob"><option value="No">No</option><option value="Yes">Yes</option></select></div>
           <div><label for="t-health">Any health condition?</label>
             <select id="t-health"><option value="No">No</option><option value="Yes">Yes</option><option value="Not sure">Not sure</option></select></div>
+          <div class="full"><label for="t-has">Do you already have insurance? <span class="opt">(optional)</span></label>
+            <select id="t-has"><option value="">Choose one</option><option value="No existing policy">No existing policy</option><option value="I have a term plan">I have a term plan</option><option value="I have other life policies">I have other life policies (endowment, money-back, ULIP)</option><option value="I have health cover only">I have health cover only</option><option value="I have several policies">I have several policies</option></select></div>
+          <div class="full"><label for="t-pol">Existing policy details <span class="opt">(optional)</span></label><textarea id="t-pol" placeholder="If you have them: company, type of policy, cover amount, year taken, and whether it is active"></textarea></div>
         </div>
         <div class="out" id="t-out" aria-live="polite"><div class="cap">Your result</div><div class="big">Enter your age, the years of cover and your income to see it here.</div></div>
-        <button type="button" class="btn btn-primary" id="t-send">Request a call back</button>
+        <p class="need" id="t-need" role="alert" hidden></p>
+        <button type="button" class="btn btn-primary" id="t-send">Get a quote</button>
         <p class="small">General guidance only, not a quote or personal advice. Eligibility and premium are decided by the insurer after underwriting. Insurance is the subject matter of solicitation.</p>
       </div>
 
@@ -367,11 +377,15 @@ input:focus,select:focus{outline:3px solid var(--brass);outline-offset:1px;borde
         <h3>SIP calculator</h3>
         <p class="lead">See what a monthly SIP could grow to under a few assumed rates of return.</p>
         <div class="fields">
+          <div class="full"><label for="s-name">Your name</label><input id="s-name" type="text" autocomplete="name" placeholder="So I know who to call"></div>
           <div><label for="s-amt">Monthly SIP (rupees)</label><input id="s-amt" type="number" inputmode="numeric" min="500" step="500" value="10000"></div>
           <div><label for="s-yrs">Years</label><input id="s-yrs" type="number" inputmode="numeric" min="1" max="40" value="10"></div>
+          <div class="full"><label for="s-goal">What is the money for? <span class="opt">(optional)</span></label>
+            <select id="s-goal"><option value="">Not decided yet</option><option>Child's education</option><option>Retirement</option><option>Buying a home</option><option>Building long-term wealth</option><option>Another goal</option></select></div>
         </div>
         <div class="out" id="s-out" aria-live="polite"></div>
-        <button type="button" class="btn btn-primary" id="s-send">Request a call back</button>
+        <p class="need" id="s-need" role="alert" hidden></p>
+        <button type="button" class="btn btn-primary" id="s-send">Get a SIP plan</button>
         <p class="small">This is an illustration with assumed rates. It is not a forecast and returns are not guaranteed. Mutual fund investments are subject to market risks. Read all scheme related documents carefully. Past performance may or may not be sustained.</p>
       </div>
 
@@ -556,49 +570,59 @@ input:focus,select:focus{outline:3px solid var(--brass);outline-offset:1px;borde
   /* ---- term plan check ---- */
   var termState=null;
   function term(){
-    var age=num('t-age'), yrs=num('t-term'), inc=num('t-inc');
+    var age=num('t-age'), cage=num('t-term'), yrs=cage-age, inc=num('t-inc');
     var occ=$('t-occ').value, tob=$('t-tob').value, hl=$('t-health').value;
     var out=$('t-out');
     termState=null;
-    if(!(age>0)||!(yrs>0)||!(inc>0)){
-      out.innerHTML='<div class="cap">Your result</div><div class="big">Enter your age, the years of cover and your income to see it here.</div>';
+    if(!(age>0)||!(cage>0)||!(inc>0)){
+      out.innerHTML='<div class="cap">Your result</div><div class="big">Enter your age, the age until which you want cover, and your income to see it here.</div>';
       return;
     }
-    if(age<18||age>80||yrs<5||yrs>60){
-      out.innerHTML='<div class="cap">Your result</div><div class="big">Please check the numbers.</div><ul><li>Age should be between 18 and 80, and the cover period between 5 and 60 years.</li></ul>';
+    if(age<18||age>80||yrs<5){
+      out.innerHTML='<div class="cap">Your result</div><div class="big">Please check the numbers.</div><ul><li>Your age should be between 18 and 80, and the age you choose for cover to end should be at least 5 years after your current age.</li></ul>';
       return;
     }
     var lo=inc*1e5*10, hi=inc*1e5*15;
     var notes=[], ok=true;
     if(age>65){ok=false;notes.push('<span class="warn">Most term plans accept new applicants only up to about age 65, so options at this age are limited. Call me and I will check what is possible.</span>');}
     else {notes.push('Most insurers accept term-plan applicants from 18 up to about 65. The exact limit differs by insurer and plan.');}
-    if(age+yrs>85){ok=false;notes.push('<span class="warn">Age plus cover period comes to '+(age+yrs)+'. Many plans end cover between age 75 and 85, so a shorter period may be needed.</span>');}
-    else {notes.push('Your cover would run until about age '+(age+yrs)+'. Check that the plan you choose allows this.');}
+    if(cage>85){ok=false;notes.push('<span class="warn">Cover until age '+cage+' means about '+yrs+' years. Many plans end cover between age 75 and 85, and only some go further, so options and premium vary. I will check what is available.</span>');}
+    else {notes.push('Cover until age '+cage+' means about '+yrs+' years. Check that the plan you choose allows this.');}
     notes.push('A common starting point is 10 to 15 times your yearly income. The right figure also depends on your loans, family needs and savings.');
     if(tob==='Yes'){notes.push('Tobacco use usually raises the premium. Declare it truthfully, because a wrong answer can lead to a rejected claim.');}
     if(hl!=='No'){notes.push('Health conditions can mean extra medical tests, a higher premium or special terms. Tell the insurer everything you know.');}
     else {notes.push('Higher covers usually need a medical check-up, even with no health condition.');}
     notes.push(occ==='Salaried'?'Be ready with recent salary slips, your Form 16 or income tax returns, and ID and address proof.':'Be ready with your last two to three years of income tax returns, and ID and address proof.');
     out.innerHTML='<div class="cap">Cover people in your position usually look at</div><div class="big">'+inr(lo)+' to '+inr(hi)+'</div><ul>'+notes.map(function(n){return '<li>'+n+'</li>';}).join('')+'</ul>';
-    termState={age:age,yrs:yrs,lo:lo,hi:hi,tob:tob,occ:occ};
+    termState={age:age,yrs:yrs,cage:cage,lo:lo,hi:hi,tob:tob,occ:occ};
   }
   ['t-age','t-term','t-inc','t-occ','t-tob','t-health'].forEach(function(id){$(id).addEventListener('input',term);$(id).addEventListener('change',term);});
+  function nm(id){return $(id).value.replace(/\s+/g,' ').trim();}
   $('t-send').addEventListener('click',function(){
-    if(!termState){
+    var need=$('t-need'); need.hidden=true;
+    var miss=[], first=null;
+    if(!nm('t-name')){miss.push('your name');first=first||'t-name';}
+    if(!(num('t-age')>0)){miss.push('your age');first=first||'t-age';}
+    if(!(num('t-term')>0)){miss.push('the age until which you want cover');first=first||'t-term';}
+    if(!(num('t-inc')>0)){miss.push('your yearly income');first=first||'t-inc';}
+    if(miss.length||!termState){
       term();
-      var f=$('t-age'); if(!(num('t-age')>0)){f.focus();}
-      else if(!(num('t-term')>0)){$('t-term').focus();}
-      else if(!(num('t-inc')>0)){$('t-inc').focus();}
+      need.textContent='Please add '+miss.join(', ').replace(/, ([^,]*)$/,' and $1')+', then tap the button again.';
+      need.hidden=false;
+      if(first){$(first).focus();}
       return;
     }
-    var t=termState;
-    openWA('Hi Ankeet, I would like a call back about a term plan.\n'+
+    var t=termState, has=$('t-has').value, pol=nm('t-pol');
+    var msg='Hi Ankeet, I am '+nm('t-name')+'. I would like a quote for a term plan.\n'+
       'My age: '+t.age+'\n'+
-      'Cover period I am looking for: '+t.yrs+' years\n'+
+      'Cover needed until age: '+t.cage+' (about '+t.yrs+' years)\n'+
       'Cover I am considering: about '+inr(t.lo)+' to '+inr(t.hi)+'\n'+
       'Tobacco use: '+t.tob+'\n'+
-      'I am: '+t.occ+'\n'+
-      'Please share a list of suitable term plans.');
+      'I am: '+t.occ+'\n';
+    if(has){msg+='Existing insurance: '+has+'\n';}
+    if(pol){msg+='Policy details: '+pol+'\n';}
+    msg+='Please share a list of suitable term plans.';
+    openWA(msg);
   });
 
   /* ---- SIP calculator ---- */
@@ -622,8 +646,18 @@ input:focus,select:focus{outline:3px solid var(--brass);outline-offset:1px;borde
   }
   ['s-amt','s-yrs'].forEach(function(id){$(id).addEventListener('input',sip);});
   $('s-send').addEventListener('click',function(){
-    if(!sipState){sip();return;}
-    openWA('Hi Ankeet, I would like a call back about starting a SIP.\nMonthly amount I am considering: '+inr(sipState.p)+'\nFor about '+sipState.y+' years.\nPlease call me to discuss the options.');
+    var need=$('s-need'); need.hidden=true;
+    var miss=[];
+    if(!nm('s-name')){miss.push('your name');}
+    if(!sipState){sip();miss.push('a monthly amount of at least \u20B9500 and 1 to 40 years');}
+    if(miss.length){
+      need.textContent='Please add '+miss.join(' and ')+', then tap the button again.';
+      need.hidden=false;
+      if(!nm('s-name')){$('s-name').focus();}
+      return;
+    }
+    var goal=$('s-goal').value;
+    openWA('Hi Ankeet, I am '+nm('s-name')+'. I would like to get started with a SIP.\nMonthly amount I am considering: '+inr(sipState.p)+'\nFor about '+sipState.y+' years.\n'+(goal?'The money is for: '+goal+'\n':'')+'Please call me to discuss the options.');
   });
   sip();
 })();
