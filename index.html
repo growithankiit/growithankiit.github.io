@@ -146,8 +146,8 @@ a:focus-visible,button:focus-visible{outline:3px solid #F2B705;outline-offset:2p
 </div>
 <div style="flex:1 1 300px;min-width:0">
 <div style="font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#1F5E64;margin-bottom:14px">Or reach me directly</div>
-<div style="margin-bottom:14px"><div style="font-weight:700">WhatsApp and phone</div><div>+91 9051731520</div></div>
-<div style="margin-bottom:14px"><div style="font-weight:700">Email</div><div style="overflow-wrap:anywhere">ankeetb2018@gmail.com</div></div>
+<div style="margin-bottom:14px"><div style="font-weight:700">WhatsApp and phone</div><div><a href="tel:+919051731520">+91 9051731520</a></div></div>
+<div style="margin-bottom:14px"><div style="font-weight:700">Email</div><div style="overflow-wrap:anywhere"><a id="em" href="#contact">Show email address</a><noscript>insurance [at] ankeetbahety.in</noscript></div></div>
 <div style="margin-bottom:14px"><div style="font-weight:700">LinkedIn</div><div><a href="https://www.linkedin.com/in/ankeet-bahety-38492690/">Ankeet Bahety on LinkedIn</a></div></div>
 <div style="margin-bottom:14px"><div style="font-weight:700">Instagram</div><div><a href="https://www.instagram.com/growithankiit/">@growithankiit</a></div></div>
 <div><div style="font-weight:700">Based in</div><div>Kolkata, West Bengal</div></div>
@@ -187,6 +187,8 @@ a:focus-visible,button:focus-visible{outline:3px solid #F2B705;outline-offset:2p
     wa.href='https://wa.me/919051731520?text='+encodeURIComponent("Hi Ankeet, I'd like a free policy review for: "+cur+".");
   }
   render();
+  var em=document.getElementById('em');
+  if(em){var u=['insurance','ankeetbahety.in'].join(String.fromCharCode(64));em.textContent=u;em.href='mailto:'+u;}
 })();
 </script>
 </body>
