@@ -28,12 +28,14 @@
   }
 
   var CATEGORIES = [
-    { id: 'health', label: 'Buying health insurance' },
+    { id: 'buying', label: 'Help buying insurance' },
     { id: 'parents', label: 'Insurance for my parents' },
     { id: 'term', label: 'Term or life insurance' },
     { id: 'claims', label: 'Claim support' },
-    { id: 'business', label: 'Business or motor insurance' },
-    { id: 'invest', label: 'SIPs, mutual funds or loans' }
+    { id: 'business', label: 'Business insurance' },
+    { id: 'motor', label: 'Motor insurance' },
+    { id: 'invest', label: 'SIPs and mutual funds' },
+    { id: 'loans', label: 'Loans' }
   ];
 
   function labelOf(id) {
