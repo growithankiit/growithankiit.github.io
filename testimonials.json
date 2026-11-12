@@ -1,1 +1,15 @@
-[]
+[
+  {
+    "name": "Rishab Bhuwalka",
+    "city": "Mumbai",
+    "category": [
+      "buying",
+      "parents",
+      "claims"
+    ],
+    "quote": "Navigating insurance can be overwhelming but Ankeet makes it extremely easy as he is very hands-on and prompt in not only suggesting policies but actually providing full support at the time of claim processing. Truly grateful to have him as our family insurance advisor.",
+    "date": "Nov 2026",
+    "verified": true,
+    "consent": true
+  }
+]
