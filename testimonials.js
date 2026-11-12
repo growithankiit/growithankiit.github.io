@@ -27,8 +27,43 @@
     return typeof s === 'string' && s.length <= n ? s : '';
   }
 
+  var CATEGORIES = [
+    { id: 'health', label: 'Buying health insurance' },
+    { id: 'parents', label: 'Insurance for my parents' },
+    { id: 'term', label: 'Term or life insurance' },
+    { id: 'claims', label: 'Claim support' },
+    { id: 'business', label: 'Business or motor insurance' },
+    { id: 'invest', label: 'SIPs, mutual funds or loans' }
+  ];
+
+  function labelOf(id) {
+    for (var i = 0; i < CATEGORIES.length; i++) if (CATEGORIES[i].id === id) return CATEGORIES[i].label;
+    return '';
+  }
+
+  function categoryOf(t) {
+    return t && typeof t.category === 'string' && labelOf(t.category) ? t.category : 'other';
+  }
+
+  function filterByCategory(list, cat) {
+    var v = visibleTestimonials(list);
+    if (!cat || cat === 'all' || !labelOf(cat)) return v;
+    return v.filter(function (t) { return categoryOf(t) === cat; });
+  }
+
+  function filtersHtml(list) {
+    var v = visibleTestimonials(list);
+    if (!v.length) return '';
+    var out = '<button type="button" class="chip on" data-cat="all">All (' + v.length + ')</button>';
+    CATEGORIES.forEach(function (c) {
+      var n = v.filter(function (t) { return categoryOf(t) === c.id; }).length;
+      if (n) out += '<button type="button" class="chip" data-cat="' + c.id + '">' + esc(c.label) + ' (' + n + ')</button>';
+    });
+    return out;
+  }
+
   function cardHtml(t) {
-    var meta = [short(t.service, 60), short(t.city, 40)].filter(Boolean).map(esc).join(' · ');
+    var meta = [labelOf(categoryOf(t)) || short(t.service, 60), short(t.city, 40)].filter(Boolean).map(esc).join(' · ');
     var vid = safeVideo(t.videoUrl);
     return '<figure class="card"><blockquote>' + esc(t.quote) + '</blockquote>' +
       '<figcaption><strong>' + esc(t.name) + '</strong>' +
@@ -38,15 +73,17 @@
       '</figcaption></figure>';
   }
 
-  function render(list) {
-    var v = visibleTestimonials(list);
+  function render(list, cat) {
+    var all = visibleTestimonials(list);
+    var v = filterByCategory(list, cat);
+    if (all.length && !v.length) return '<p class="empty">No reviews in this category yet.</p>';
     if (!v.length) {
       return '<p class="empty">Client reviews will appear here soon. Every review is checked with the client before it is published.</p>';
     }
     return v.map(cardHtml).join('');
   }
 
-  var api = { esc: esc, visibleTestimonials: visibleTestimonials, render: render };
+  var api = { esc: esc, visibleTestimonials: visibleTestimonials, render: render, CATEGORIES: CATEGORIES, categoryOf: categoryOf, filterByCategory: filterByCategory, filtersHtml: filtersHtml };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.Testimonials = api;
 })(typeof window !== 'undefined' ? window : this);

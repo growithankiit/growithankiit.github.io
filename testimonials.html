@@ -27,7 +27,7 @@ a{color:var(--ink)}a:hover{color:var(--brass-dark)}:focus-visible{outline:3px so
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;margin:28px 0}
 .card{margin:0;background:var(--white);border:1px solid var(--line);border-top:4px solid var(--brass);border-radius:6px;padding:22px}.card blockquote{margin:0 0 14px;font:400 1.1rem/1.55 var(--serif)}
 .card figcaption{font-size:14px;display:flex;flex-direction:column;gap:2px;color:var(--muted)}.card figcaption strong{color:var(--ink)}.vid{margin-top:8px;font-weight:600}
-.empty{grid-column:1/-1;padding:28px;background:var(--white);border:1px dashed var(--line);border-radius:6px;color:var(--muted)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0}.chip{font:600 14.5px var(--sans);padding:9px 16px;min-height:44px;border-radius:999px;border:1.5px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer}.chip.on{background:var(--ink);color:#fff}.pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin:8px 0 4px}.pick label{margin:0;display:flex;gap:10px;align-items:center;border:1.5px solid #B9C8C7;border-radius:6px;padding:12px 14px;font-weight:600;cursor:pointer;background:#fff}.pick input{width:20px;min-height:20px;height:20px;accent-color:var(--ink)}.pick label:has(input:checked){border-color:var(--ink);background:var(--mist)}.empty{grid-column:1/-1;padding:28px;background:var(--white);border:1px dashed var(--line);border-radius:6px;color:var(--muted)}
 .how,.share{background:var(--white);border:1px solid var(--line);border-radius:6px;padding:26px;margin-top:24px}.how p{margin-top:8px;color:var(--muted)}
 label{display:block;font-weight:600;font-size:14.5px;margin:14px 0 6px;color:var(--ink)}input,select,textarea{width:100%;padding:10px 14px;border:1.5px solid #B9C8C7;border-radius:4px;background:#fff;font:400 16px var(--sans);color:var(--text)}input,select{min-height:48px}
 .chk{display:flex;gap:12px;align-items:flex-start;font-weight:400}.chk input{width:22px;min-height:22px;height:22px;flex:none;margin-top:2px;accent-color:var(--ink)}
@@ -45,6 +45,7 @@ label{display:block;font-weight:600;font-size:14.5px;margin:14px 0 6px;color:var
 <p class="crumb"><a href="/">Home</a> / Testimonials</p>
 <h1>What clients say</h1>
 <p class="lede">Every review below was confirmed with the client, who agreed to have it published. Names are shown as the client chose.</p>
+<div id="filters" class="filters" role="group" aria-label="Filter reviews by topic"></div>
 <section id="list" class="grid" aria-live="polite"><p class="empty">Loading reviews…</p></section>
 
 <section class="how"><strong>How reviews are verified</strong>
@@ -55,8 +56,15 @@ label{display:block;font-weight:600;font-size:14.5px;margin:14px 0 6px;color:var
 <form id="f" autocomplete="off">
 <label for="n">Your name (as you want it shown)</label><input id="n" maxlength="60" required>
 <label for="c">City</label><input id="c" maxlength="40">
-<label for="s">What did I help with?</label>
-<select id="s"><option>Health insurance</option><option>Life or term insurance</option><option>Motor insurance</option><option>Business insurance</option><option>Claim support</option><option>SIP or mutual funds</option><option>Loan</option><option>Other</option></select>
+<label id="cl">What did I help you with? Pick one</label>
+<div class="pick" id="s" role="radiogroup" aria-labelledby="cl">
+<label><input type="radio" name="cat" value="health" checked> Buying health insurance</label>
+<label><input type="radio" name="cat" value="parents"> Insurance for my parents</label>
+<label><input type="radio" name="cat" value="term"> Term or life insurance</label>
+<label><input type="radio" name="cat" value="claims"> Claim support</label>
+<label><input type="radio" name="cat" value="business"> Business or motor insurance</label>
+<label><input type="radio" name="cat" value="invest"> SIPs, mutual funds or loans</label>
+</div>
 <label for="q">Your review (max 600 characters)</label><textarea id="q" rows="5" maxlength="600" required></textarea>
 <div class="hp"><label for="hp">Leave this empty</label><input id="hp" tabindex="-1"></div>
 <label class="chk"><input type="checkbox" id="k" required><span>I agree that this review may be published with my name and city after Ankeet confirms it with me. I have not shared medical or policy numbers in it.</span></label>
@@ -64,7 +72,7 @@ label{display:block;font-weight:600;font-size:14.5px;margin:14px 0 6px;color:var
 <small>This opens your WhatsApp or email app with the text filled in. Nothing is stored on this website.</small>
 </form>
 <h3>Prefer a video?</h3>
-<p>Record 30 to 60 seconds on your phone and send it to me on WhatsApp at +91 90517 31520 with the words "I agree to publish this video". It goes live only after I confirm it with you.</p>
+<p>Record 30 to 60 seconds on your phone and send it to me on WhatsApp at +91 90517 31520 with the words "I agree to publish this video" and the topic you picked above. It goes live only after I confirm it with you.</p>
 <h3>Post it on Instagram or LinkedIn too</h3>
 <p>Happy to be tagged. Copy your review, paste it into your own post, and tag me so I can share it.</p>
 <button class="btn btn-ink" type="button" id="copy">Copy my review</button>
@@ -80,12 +88,19 @@ label{display:block;font-weight:600;font-size:14.5px;margin:14px 0 6px;color:var
 <script src="/testimonials.js"></script>
 <script>
 (function(){
-  var list=document.getElementById('list');
+  var list=document.getElementById('list'),data=[];
   fetch('/testimonials.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():[]}).catch(function(){return []})
-    .then(function(d){list.innerHTML=Testimonials.render(d)});
+    .then(function(d){
+      data=d;var f=document.getElementById('filters');f.innerHTML=Testimonials.filtersHtml(d);
+      list.innerHTML=Testimonials.render(d,'all');
+      f.addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;
+        [].forEach.call(f.querySelectorAll('.chip'),function(c){c.classList.toggle('on',c===b)});
+        list.innerHTML=Testimonials.render(data,b.getAttribute('data-cat'))});
+    });
   function msg(){
     var g=function(i){return document.getElementById(i).value.trim()};
-    return 'Testimonial for Ankeet Bahety\nName: '+g('n')+'\nCity: '+g('c')+'\nService: '+g('s')+'\nReview: '+g('q')+'\nI agree to publication with my name and city after confirmation.';
+    var r=document.querySelector('input[name=cat]:checked'),lab=r?r.parentNode.textContent.trim():'';
+    return 'Testimonial for Ankeet Bahety\nName: '+g('n')+'\nCity: '+g('c')+'\nTopic: '+lab+'\nReview: '+g('q')+'\nI agree to publication with my name and city after confirmation.';
   }
   function valid(){var f=document.getElementById('f');if(document.getElementById('hp').value)return false;return f.reportValidity()}
   document.getElementById('copy').addEventListener('click',function(){
