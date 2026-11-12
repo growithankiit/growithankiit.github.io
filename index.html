@@ -477,14 +477,14 @@ window.deskPost=function(type,name,phone,rows,extra){
 .svc-row .what{margin-top:10px}
 .svc-row .ask{position:absolute;left:24px;right:24px;bottom:20px;margin:0;font-size:14.5px;z-index:3}
 .svc-row ul{margin:14px 0 0;columns:1;font-size:15px}
-@media (hover:hover) and (pointer:fine){
-.svc-row{min-height:340px}
-.svc-row h3::after{content:"Hover to see what is covered";display:block;margin-top:6px;font:600 12.5px/1.2 var(--sans);letter-spacing:.02em;color:var(--brass-dark)}
-.svc-row ul{position:absolute;left:0;right:0;top:0;bottom:62px;margin:0;padding:22px 24px;background:var(--ink);color:#EAF3F2;overflow:auto;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .22s,transform .22s,visibility .22s;z-index:2}
-.svc-row:hover ul,.svc-row:focus-within ul{opacity:1;visibility:visible;transform:none}
-.svc-row li{color:#EAF3F2}.svc-row li::before{background:var(--brass-soft)}
-}
+html.js .svc-row{min-height:340px;cursor:pointer}
+html.js .svc-row h3::after{content:"Tap to see what is covered";display:block;margin-top:6px;font:600 12.5px/1.2 var(--sans);letter-spacing:.02em;color:var(--brass-dark)}
+html.js .svc-row ul{position:absolute;left:0;right:0;top:0;bottom:62px;margin:0;padding:22px 24px;background:var(--ink);color:#EAF3F2;overflow:auto;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .22s,transform .22s,visibility .22s;z-index:2}
+html.js .svc-row.open ul,html.js .svc-row:focus-within ul{opacity:1;visibility:visible;transform:none}
+html.js .svc-row li{color:#EAF3F2}html.js .svc-row li::before{background:var(--brass-soft)}
+@media (hover:hover) and (pointer:fine){html.js .svc-row h3::after{content:"Hover to see what is covered"}html.js .svc-row:hover ul{opacity:1;visibility:visible;transform:none}}
 </style>
+<script>document.documentElement.className+=" js"</script>
 </head>
 <body>
 
@@ -1217,5 +1217,10 @@ window.deskPost=function(type,name,phone,rows,extra){
 })();
 </script>
 
+<script>
+(function(){var c=[].slice.call(document.querySelectorAll(".svc-row"));
+function tg(x){var o=x.classList.contains("open");c.forEach(function(y){y.classList.remove("open")});if(!o)x.classList.add("open")}
+c.forEach(function(x){x.setAttribute("tabindex","0");x.addEventListener("click",function(e){if(e.target.closest("a"))return;tg(x)});x.addEventListener("keydown",function(e){if((e.key==="Enter"||e.key===" ")&&e.target===x){e.preventDefault();tg(x)}})});})();
+</script>
 </body>
 </html>
