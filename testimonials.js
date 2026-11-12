@@ -43,14 +43,23 @@
     return '';
   }
 
+  function categoriesOf(t) {
+    var raw = t ? (Array.isArray(t.category) ? t.category : [t.category]) : [];
+    var out = [];
+    raw.forEach(function (id) {
+      if (typeof id === 'string' && labelOf(id) && out.indexOf(id) === -1) out.push(id);
+    });
+    return out.length ? out : ['other'];
+  }
+
   function categoryOf(t) {
-    return t && typeof t.category === 'string' && labelOf(t.category) ? t.category : 'other';
+    return categoriesOf(t)[0];
   }
 
   function filterByCategory(list, cat) {
     var v = visibleTestimonials(list);
     if (!cat || cat === 'all' || !labelOf(cat)) return v;
-    return v.filter(function (t) { return categoryOf(t) === cat; });
+    return v.filter(function (t) { return categoriesOf(t).indexOf(cat) !== -1; });
   }
 
   function filtersHtml(list) {
@@ -58,14 +67,14 @@
     if (!v.length) return '';
     var out = '<button type="button" class="chip on" data-cat="all">All (' + v.length + ')</button>';
     CATEGORIES.forEach(function (c) {
-      var n = v.filter(function (t) { return categoryOf(t) === c.id; }).length;
+      var n = v.filter(function (t) { return categoriesOf(t).indexOf(c.id) !== -1; }).length;
       if (n) out += '<button type="button" class="chip" data-cat="' + c.id + '">' + esc(c.label) + ' (' + n + ')</button>';
     });
     return out;
   }
 
   function cardHtml(t) {
-    var meta = [labelOf(categoryOf(t)) || short(t.service, 60), short(t.city, 40)].filter(Boolean).map(esc).join(' · ');
+    var meta = [categoriesOf(t).map(labelOf).filter(Boolean).join(', ') || short(t.service, 60), short(t.city, 40)].filter(Boolean).map(esc).join(' · ');
     var vid = safeVideo(t.videoUrl);
     return '<figure class="card"><blockquote>' + esc(t.quote) + '</blockquote>' +
       '<figcaption><strong>' + esc(t.name) + '</strong>' +
@@ -85,7 +94,7 @@
     return v.map(cardHtml).join('');
   }
 
-  var api = { esc: esc, visibleTestimonials: visibleTestimonials, render: render, CATEGORIES: CATEGORIES, categoryOf: categoryOf, filterByCategory: filterByCategory, filtersHtml: filtersHtml };
+  var api = { esc: esc, visibleTestimonials: visibleTestimonials, render: render, CATEGORIES: CATEGORIES, categoryOf: categoryOf, categoriesOf: categoriesOf, filterByCategory: filterByCategory, filtersHtml: filtersHtml };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.Testimonials = api;
 })(typeof window !== 'undefined' ? window : this);

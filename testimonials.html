@@ -63,16 +63,16 @@ label{display:block;font-weight:600;font-size:14.5px;margin:14px 0 6px;color:var
 <form id="f" autocomplete="off">
 <label for="n">Your name (as you want it shown)</label><input id="n" maxlength="60" required>
 <label for="c">City</label><input id="c" maxlength="40">
-<label id="cl">What did I help you with? Pick one</label>
-<div class="pick" id="s" role="radiogroup" aria-labelledby="cl">
-<label><input type="radio" name="cat" value="buying" checked> Help buying insurance</label>
-<label><input type="radio" name="cat" value="parents"> Insurance for my parents</label>
-<label><input type="radio" name="cat" value="term"> Term or life insurance</label>
-<label><input type="radio" name="cat" value="claims"> Claim support</label>
-<label><input type="radio" name="cat" value="business"> Business insurance</label>
-<label><input type="radio" name="cat" value="motor"> Motor insurance</label>
-<label><input type="radio" name="cat" value="invest"> SIPs and mutual funds</label>
-<label><input type="radio" name="cat" value="loans"> Loans</label>
+<label id="cl">What did I help you with? Pick any that apply</label>
+<div class="pick" id="s" role="group" aria-labelledby="cl">
+<label><input type="checkbox" name="cat" value="buying"> Help buying insurance</label>
+<label><input type="checkbox" name="cat" value="parents"> Insurance for my parents</label>
+<label><input type="checkbox" name="cat" value="term"> Term or life insurance</label>
+<label><input type="checkbox" name="cat" value="claims"> Claim support</label>
+<label><input type="checkbox" name="cat" value="business"> Business insurance</label>
+<label><input type="checkbox" name="cat" value="motor"> Motor insurance</label>
+<label><input type="checkbox" name="cat" value="invest"> SIPs and mutual funds</label>
+<label><input type="checkbox" name="cat" value="loans"> Loans</label>
 </div>
 <label for="q">Your review (max 600 characters)</label><textarea id="q" rows="5" maxlength="600" required></textarea>
 <div class="hp"><label for="hp">Leave this empty</label><input id="hp" tabindex="-1"></div>
@@ -81,7 +81,7 @@ label{display:block;font-weight:600;font-size:14.5px;margin:14px 0 6px;color:var
 <small>This opens your WhatsApp or email app with the text filled in. Nothing is stored on this website.</small>
 </form>
 <h3>Prefer a video?</h3>
-<p>Record 30 to 60 seconds on your phone and send it to me on WhatsApp at +91 90517 31520 with the words "I agree to publish this video" and the topic you picked above. It goes live only after I confirm it with you.</p>
+<p>Record 30 to 60 seconds on your phone and send it to me on WhatsApp at +91 90517 31520 with the words "I agree to publish this video" and the topics you picked above. It goes live only after I confirm it with you.</p>
 <h3>Post it on Google, Instagram or LinkedIn too</h3>
 <p>Happy to be tagged. Copy your review, paste it into your own post, and tag me so I can share it.</p>
 <button class="btn btn-ink" type="button" id="copy">Copy my review</button>
@@ -109,8 +109,8 @@ label{display:block;font-weight:600;font-size:14.5px;margin:14px 0 6px;color:var
     });
   function msg(){
     var g=function(i){return document.getElementById(i).value.trim()};
-    var r=document.querySelector('input[name=cat]:checked'),lab=r?r.parentNode.textContent.trim():'';
-    return 'Testimonial for Ankeet Bahety\nName: '+g('n')+'\nCity: '+g('c')+'\nTopic: '+lab+'\nReview: '+g('q')+'\nI agree to publication with my name and city after confirmation.';
+    var lab=[].slice.call(document.querySelectorAll('input[name=cat]:checked')).map(function(x){return x.parentNode.textContent.trim()}).join(', ')||'Not selected';
+    return 'Testimonial for Ankeet Bahety\nName: '+g('n')+'\nCity: '+g('c')+'\nTopics: '+lab+'\nReview: '+g('q')+'\nI agree to publication with my name and city after confirmation.';
   }
   function valid(){var f=document.getElementById('f');if(document.getElementById('hp').value)return false;return f.reportValidity()}
   document.getElementById('copy').addEventListener('click',function(){
