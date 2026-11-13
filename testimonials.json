@@ -11,5 +11,21 @@
     "date": "Nov 2026",
     "verified": true,
     "consent": true
+  },
+  {
+    "name": "Nikhil Bhagat",
+    "city": "Kolkata",
+    "category": [
+      "buying",
+      "parents",
+      "term",
+      "claims",
+      "motor",
+      "invest"
+    ],
+    "quote": "Getting superlative response and service from Ankeet bahety. Recommended for future business. Easily reachable anytime 😊",
+    "date": "Nov 2026",
+    "verified": true,
+    "consent": true
   }
 ]
